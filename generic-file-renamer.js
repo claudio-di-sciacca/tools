@@ -1,7 +1,8 @@
-const { join } = require("path");
+const { join, extname } = require("path");
 const { readdirSync, renameSync } = require("fs");
-const [replace,fileFormat] = process.argv.slice(2);
-const match = RegExp(/generic-file-renamer+/, "g");
+const [replace, extension] = process.argv.slice(2);
+const fileName = __filename.split(/[\\/]/).pop();
+const match = RegExp(fileName, "g");
 const files = readdirSync(process.cwd());
 let counter = 0;
 files
@@ -10,12 +11,18 @@ files
     const filePath = join(process.cwd(), file);
     const newFilePath = join(
       process.cwd(),
-      file.replace(file, (replace + "." + counter  + fileFormat))
+      file.replace(
+        file,
+        replace +
+          "." +
+          counter +
+          (extension ? "." + extension : extname(filePath))
+      )
     );
     counter = counter + 1;
     renameSync(filePath, newFilePath);
   });
-
+  
 // Usage
 // - install node
 // - put in the wanted directory
