@@ -1,7 +1,7 @@
 .PHONY: rename
 rename:
-	echo "node file-system/rename-files.js"
+	echo "python file-system/modify-files.js rename"
 
 .PHONY: move
 move:
-	echo "python file-system/move-files.py"
+	echo "python file-system/modify-files.py mode"
